@@ -14,5 +14,9 @@ class CategoryTableSeeder extends Seeder
         \App\Category::create([
             'name' => "MVC"
         ]);
+
+        \App\Category::create([
+            'name' => "TypeScript"
+        ]);
     }
 }

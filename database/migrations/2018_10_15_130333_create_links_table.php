@@ -15,8 +15,9 @@ class CreateLinksTable extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('LinkAddress');
-            $table->integer('score');
+            $table->string('linkAddress');
+            $table->integer('score')->default(0);
+            $table->boolean('allowVoting')->default(true);
 
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
