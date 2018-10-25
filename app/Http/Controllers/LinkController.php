@@ -48,7 +48,7 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\LinkRequest;  $request
+     * @param  LinkRequest;  $request
      * @return \Illuminate\Http\Response
      */
     public function store(LinkRequest $request)
@@ -84,7 +84,7 @@ class LinkController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\LinkRequest;  $request
+     * @param  LinkRequest;  $request
      * @param  \App\Link  $link
      * @return \Illuminate\Http\Response
      */
@@ -99,6 +99,7 @@ class LinkController extends Controller
      *
      * @param  \App\Link  $link
      * @return \Illuminate\Http\Response
+     * @throws ? XD
      */
     public function destroy(Link $link)
     {

@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 Route::group(['middleware' => ['auth']], function(){
     Route::resource('link', 'LinkController');
+    Route::resource('category', 'CategoryController');
     Route::get('link/{link}/upvote', 'LinkController@upvote')->name('link.upvote');
 
 });

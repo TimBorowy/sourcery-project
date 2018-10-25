@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Category;
 use App\Link;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -28,7 +29,8 @@ class RouteServiceProvider extends ServiceProvider
 
         parent::boot();
 
-        Route::model('user', Link::class);
+        Route::model('link', Link::class);
+        Route::model('category', Category::class);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -24,18 +26,20 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CategoryRequest;  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $input = $request->all();
+        Category::create($input);
+        return redirect(route('category.index'));
     }
 
     /**
@@ -46,7 +50,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -57,19 +61,20 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CategoryRequest  $request
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->all());
+        return redirect(route('category.index'));
     }
 
     /**
@@ -77,9 +82,11 @@ class CategoryController extends Controller
      *
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
+     * @throws ? XD
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect(route('category.index'));
     }
 }
