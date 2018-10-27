@@ -5,6 +5,12 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('description', 'Beschrijving:') !!}
+    {!! Form::text('description', null, ['class' => 'form-control']) !!}
+    @include('errors.validation', ['error' => 'description'])
+</div>
+
+<div class="form-group">
     {!! Form::label('category_id', 'Category:') !!}
     {!! Form::select('category_id', $categories, ['class' => 'form-control']) !!}
     @include('errors.validation', ['error' => 'category_id'])

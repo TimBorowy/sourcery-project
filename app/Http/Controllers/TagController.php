@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TagRequest;
 use App\Tag;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::all();
+        return view('tag.index', compact('tags'));
     }
 
     /**
@@ -24,18 +26,21 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('tag.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TagRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
-        //
+        $input = $request->all();
+
+        Tag::create($input);
+        return redirect(route('tag.index'));
     }
 
     /**
@@ -46,7 +51,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return view('tag.show', compact('tag'));
     }
 
     /**
@@ -57,19 +62,21 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('tag.edit', compact('tag'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TagRequest  $request
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
-        //
+        $tag->update($request->all());
+        return redirect(route('tag.index'));
+
     }
 
     /**
@@ -77,9 +84,11 @@ class TagController extends Controller
      *
      * @param  \App\Tag  $tag
      * @return \Illuminate\Http\Response
+     * @throws ? XD
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect(route(tag.index));
     }
 }

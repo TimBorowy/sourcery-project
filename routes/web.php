@@ -11,15 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', 'HomeController@index')->name('index');
+Route::post('/', 'LinkController@search')->name('link.search');
 
 Auth::routes();
-Route::group(['middleware' => ['auth']], function(){
+
+Route::group([], function(){
+    Route::get('link/{link}/upvote', 'LinkController@upvote')->name('link.upvote');
+});
+
+Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function(){
     Route::resource('link', 'LinkController');
     Route::resource('category', 'CategoryController');
-    Route::get('link/{link}/upvote', 'LinkController@upvote')->name('link.upvote');
+    Route::resource('tag', 'TagController');
 
 });
 

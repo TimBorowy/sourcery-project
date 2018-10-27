@@ -21,7 +21,7 @@
                     </div>
                     <div class="col">
                         <a href="{{ route('link.show', $link->id) }}">
-                            <h2>{{$link->linkAddress}}</h2>
+                            <h2>{{$link->description}}</h2>
                         </a>
 
                     </div>

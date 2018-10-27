@@ -20,6 +20,15 @@ class LinkController extends Controller
         return view('link.index', compact('links'));
     }
 
+    public function search(Request $request){
+        $searchQuery = $request->input('searchQuery');
+
+        $links = Link::where('description', 'LIKE', '%'.$searchQuery.'%')->get();
+
+        return view('home', compact('links'));
+    }
+
+
     /**
      * Up vote the specified resource.
      *
@@ -78,6 +87,7 @@ class LinkController extends Controller
     public function edit(Link $link)
     {
         $categories = Category::all()->pluck('name', 'id');
+
         return view('link.edit', compact('link','categories'));
     }
 

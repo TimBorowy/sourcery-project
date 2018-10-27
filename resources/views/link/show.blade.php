@@ -3,10 +3,10 @@
 @section('content')
 
     <div class="container">
-        {{--{{ dump($link) }}--}}
         <div class="row">
             <div class="col-md-8 offset-md-2 topMargin">
-                <h1>{{$link->linkAddress}}</h1>
+                <h1>{{$link->description}}</h1>
+                <a href="{{$link->linkAddress}}">{{$link->linkAddress}}</a>
 
 
                 {!! Form::model($link, ['route' => ['link.destroy', $link], 'method' => 'DELETE']) !!}
@@ -20,6 +20,7 @@
                 @foreach($link->tags as $tag)
                     <p>{{$tag->name}}</p>
                 @endforeach
+
             </div>
 
         </div>

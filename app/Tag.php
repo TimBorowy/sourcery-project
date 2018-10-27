@@ -10,7 +10,7 @@ class Tag extends Model
         'name'
     ];
 
-    public function Link(){
+    public function Links(){
         return $this->belongsToMany('App\Link', 'link_tags');
     }
 }
