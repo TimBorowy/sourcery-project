@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Link extends Model
 {
     protected $fillable = [
-        'linkAddress', 'description', 'score', 'category_id'
+        'linkAddress', 'description', 'score', 'category_id', 'allowVoting'
     ];
 
     public function category(){

@@ -11,9 +11,21 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('allowVoting', 'Stemmen toestaan:') !!}
+    {!! Form::checkbox('allowVoting', null, ['class' => 'form-control']) !!}
+    @include('errors.validation', ['error' => 'allowVoting'])
+</div>
+
+<div class="form-group">
     {!! Form::label('category_id', 'Category:') !!}
     {!! Form::select('category_id', $categories, ['class' => 'form-control']) !!}
     @include('errors.validation', ['error' => 'category_id'])
+</div>
+
+<div class="form-group">
+    @foreach($tags as $tag)
+        {{$tag->name}}
+    @endforeach
 </div>
 
 <div class="form-group">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\LinkRequest;
 use App\Link;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -50,8 +51,9 @@ class LinkController extends Controller
     public function create()
     {
         $categories = Category::all()->pluck('name', 'id');
+        $tags = Tag::all();
 
-        return view('link.create', compact('categories'));
+        return view('link.create', compact('categories', 'tags'));
     }
 
     /**
@@ -63,6 +65,7 @@ class LinkController extends Controller
     public function store(LinkRequest $request)
     {
         $input = $request->all();
+        $input->allowVoting = 1;
         Link::create($input);
         return redirect(route('link.index'));
     }
