@@ -10,11 +10,16 @@ class Link extends Model
     use Taggable;
 
     protected $fillable = [
-        'linkAddress', 'description', 'score', 'category_id', 'allowVoting'
+        'linkAddress', 'description', 'score', 'category_id', 'allowVoting', 'user_id',
     ];
 
     public function category(){
         return $this->belongsTo('App\Category');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
     public function Tags()

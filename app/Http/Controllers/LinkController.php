@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\LinkRequest;
 use App\Link;
-use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LinkController extends Controller
 {
@@ -74,7 +74,7 @@ class LinkController extends Controller
     public function store(LinkRequest $request)
     {
         $input = $request->all();
-        //$input->allowVoting = 1;
+        $input['user_id'] = Auth::user()->id;
         $link = Link::create($input);
 
         $link->tag(explode(',', $request->tags));
@@ -90,6 +90,7 @@ class LinkController extends Controller
      */
     public function show(Link $link)
     {
+
         return view('link.show', compact('link'));
     }
 
@@ -101,17 +102,21 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
+        return (Auth::user()->id == $link->user_id);
+
         $categories = Category::all()->pluck('name', 'id');
         $tags = Link::existingTags()->pluck('name');
 
         $inputTags = "";
-        // make string from all tags for this link.
-        foreach ($link->tags as $tag) {
-            $inputTags .= $tag->name.",";
-        }
-        //remove last comma from string
-        $inputTags = substr($inputTags, 0, -1);
 
+        if (!empty($link->tags[0])) {
+            // make string from all tags for this link.
+            foreach ($link->tags as $tag) {
+                $inputTags .= $tag->name . ",";
+            }
+            //remove last comma from string
+            $inputTags = substr($inputTags, 0, -1);
+        }
         return view('link.edit', compact('link','categories', 'tags', 'inputTags'));
     }
 
@@ -124,6 +129,7 @@ class LinkController extends Controller
      */
     public function update(LinkRequest $request, Link $link)
     {
+
         $link->update($request->all());
 
         $link->retag(explode(',', $request->tags));

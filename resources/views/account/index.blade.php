@@ -5,23 +5,24 @@
 
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <h1>Categories</h1>
+                <h1>Your account:</h1>
                 <div>
-                    <a class="btn btn-primary" href="{{route('category.create')}}">Create category</a>
+                    <a class="btn btn-primary" href="{{route('link.create')}}">Create Link</a>
                 </div>
             </div>
 
+
             <ul class="list-group list-group-flush">
-                @foreach($categories as $category)
+                @foreach($links as $link)
                 <li class="list-group-item d-flex">
-                    <div class="p-1 flex-grow-1">
-                        <a href="{{ route('category.show', $category->id) }}">
-                            <h2>{{$category->name}}</h2>
+                    <div class="col">
+                        <a href="{{ route('link.show', $link->id) }}">
+                            <h2>{{$link->description}}</h2>
                         </a>
 
                     </div>
-                    <div class="p-1">
-                        <a class="btn btn-success" href="{{route('category.edit', $category->id)}}">Edit category</a>
+                    <div>
+                        <a class="btn btn-success" href="{{route('link.edit', $link->id)}}">Edit link</a>
                     </div>
                 </li>
                 @endforeach
