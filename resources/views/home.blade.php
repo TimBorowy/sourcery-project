@@ -21,8 +21,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="">
         <div class="card">
@@ -30,7 +28,18 @@
                 {!! Form::open(['route' => ['link.search'], 'method' => 'POST']) !!}
 
                 {!! Form::label('searchQuery', 'Zoekterm') !!}
-                {!! Form::text('searchQuery', null, ['class' => 'form-control']) !!}
+                {!! Form::text('searchQuery', isset($searchQuery) ? $searchQuery : null, ['class' => 'form-control']) !!}
+                <p>Tags:</p>
+                @foreach($tags as $tag)
+                    <div class="form-check">
+                        {!! Form::label('tags[]', $tag->name) !!}
+                        @if(isset($filterTags))
+                        {!! Form::checkbox('tags[]', $tag->name, in_array($tag->name, $filterTags) ? true : false) !!}
+                        @else
+                            {!! Form::checkbox('tags[]', $tag->name) !!}
+                        @endif
+                    </div>
+                @endforeach
 
                 {{ Form::submit('Zoek link', ['class' => 'btn btn-default']) }}
 

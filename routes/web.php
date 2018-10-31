@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::group([], function(){
     Route::get('link/{link}/upvote', 'LinkController@upvote')->name('link.upvote');
+    Route::resource('account', 'AccountController');
 });
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function(){

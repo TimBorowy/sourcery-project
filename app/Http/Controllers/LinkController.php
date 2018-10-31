@@ -22,11 +22,20 @@ class LinkController extends Controller
     }
 
     public function search(Request $request){
+
         $searchQuery = $request->input('searchQuery');
+        $filterTags = $request->input('tags');
 
-        $links = Link::where('description', 'LIKE', '%'.$searchQuery.'%')->get();
+        if($filterTags == null){
+            $links = Link::withAnyTag($filterTags)->where('description', 'LIKE', '%' . $searchQuery . '%')->get();
+        } else {
+            $links = Link::where('description', 'LIKE', '%' . $searchQuery . '%')->get();
+        }
 
-        return view('home', compact('links'));
+        $tags = Link::existingTags();
+
+
+        return view('home', compact('links', 'tags', 'filterTags', 'searchQuery'));
     }
 
 
@@ -51,7 +60,7 @@ class LinkController extends Controller
     public function create()
     {
         $categories = Category::all()->pluck('name', 'id');
-        $tags = Tag::all();
+        $tags = Link::existingTags()->pluck('name');
 
         return view('link.create', compact('categories', 'tags'));
     }
@@ -65,8 +74,11 @@ class LinkController extends Controller
     public function store(LinkRequest $request)
     {
         $input = $request->all();
-        $input->allowVoting = 1;
-        Link::create($input);
+        //$input->allowVoting = 1;
+        $link = Link::create($input);
+
+        $link->tag(explode(',', $request->tags));
+
         return redirect(route('link.index'));
     }
 
@@ -90,8 +102,17 @@ class LinkController extends Controller
     public function edit(Link $link)
     {
         $categories = Category::all()->pluck('name', 'id');
+        $tags = Link::existingTags()->pluck('name');
 
-        return view('link.edit', compact('link','categories'));
+        $inputTags = "";
+        // make string from all tags for this link.
+        foreach ($link->tags as $tag) {
+            $inputTags .= $tag->name.",";
+        }
+        //remove last comma from string
+        $inputTags = substr($inputTags, 0, -1);
+
+        return view('link.edit', compact('link','categories', 'tags', 'inputTags'));
     }
 
     /**
@@ -104,6 +125,8 @@ class LinkController extends Controller
     public function update(LinkRequest $request, Link $link)
     {
         $link->update($request->all());
+
+        $link->retag(explode(',', $request->tags));
         return redirect(route('link.index'));
     }
 

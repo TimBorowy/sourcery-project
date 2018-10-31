@@ -12,7 +12,7 @@
 
 <div class="form-group">
     {!! Form::label('allowVoting', 'Stemmen toestaan:') !!}
-    {!! Form::checkbox('allowVoting', null, ['class' => 'form-control']) !!}
+    {!! Form::checkbox('allowVoting', 1, ['class' => 'form-control']) !!}
     @include('errors.validation', ['error' => 'allowVoting'])
 </div>
 
@@ -23,11 +23,31 @@
 </div>
 
 <div class="form-group">
+    @if(isset($inputTags))
+        {!! Form::label('tags', 'Add new tag:') !!}
+        {!! Form::text('tags', $inputTags, ['class' => 'form-control']) !!}
+    @else
+        {!! Form::label('tags', 'Add new tag:') !!}
+        {!! Form::text('tags', null, ['class' => 'form-control']) !!}
+    @endif
+</div>
+
+{{--<div class="form-group">
     @foreach($tags as $tag)
         {{$tag->name}}
     @endforeach
-</div>
+</div>--}}
 
 <div class="form-group">
     <button class="form-control btn btn-primary">Submit</button>
 </div>
+
+<script>
+    var tags = [
+        @foreach ($tags as $tag)
+        {
+            tag: "{{$tag}}"
+        },
+        @endforeach
+    ];
+</script>

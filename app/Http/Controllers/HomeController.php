@@ -25,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $links = Link::all();
-        return view('home', compact('links'));
+        $tags = Link::existingTags();
+        return view('home', compact('links', 'tags'));
     }
 }
