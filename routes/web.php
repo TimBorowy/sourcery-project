@@ -13,17 +13,17 @@
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::post('/', 'LinkController@search')->name('link.search');
-Route::resource('link', 'LinkController')->only('show')->name('show', 'public.link.show');
+Route::get('/link/{link}', 'LinkController@show')->name('public.link.show');
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth']], function(){
-    Route::get('link/{link}/upvote', 'LinkController@upvote')->name('link.upvote');
-    Route::resource('account', 'AccountController');
+Route::group(['middleware' => ['auth'], 'prefix' => 'account'], function(){
+    Route::post('link/{link}/vote', 'LinkController@upvote')->name('link.vote');
+    Route::resource('link', 'LinkController');
 });
+Route::resource('account', 'AccountController')->middleware('auth');
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function(){
-    Route::resource('link', 'LinkController');
     Route::resource('category', 'CategoryController');
 });
 

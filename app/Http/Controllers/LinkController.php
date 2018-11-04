@@ -102,7 +102,9 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        return (Auth::user()->id == $link->user_id);
+        if($this->isAllowedToModify($link)){
+            return response('Unauthorized.', 401);
+        }
 
         $categories = Category::all()->pluck('name', 'id');
         $tags = Link::existingTags()->pluck('name');
@@ -129,6 +131,9 @@ class LinkController extends Controller
      */
     public function update(LinkRequest $request, Link $link)
     {
+        if ($this->isAllowedToModify($link)) {
+            return response('Unauthorized.', 401);
+        }
 
         $link->update($request->all());
 
@@ -145,7 +150,17 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
+        if ($this->isAllowedToModify($link)) {
+            return response('Unauthorized.', 401);
+        }
+
         $link->delete();
         return redirect(route('link.index'));
+    }
+
+    public function isAllowedToModify($link){
+        if(Auth::user()->id != $link->user_id){
+            return true;
+        }
     }
 }

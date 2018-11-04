@@ -30,8 +30,8 @@
             @foreach($links as $link)
                 <li class="list-group-item d-flex">
                     <div class="p-1">
-                        <a class="btn btn-secondary" href="{{route('link.upvote', $link->id)}}">^</a>
-                        <a class="btn btn-secondary" href="{{route('link.upvote', $link->id)}}">v</a>
+                        <a class="btn btn-secondary" href="{{route('link.vote', $link->id)}}">^</a>
+                        <a class="btn btn-secondary" href="{{route('link.vote', $link->id)}}">v</a>
                         <span style="display: block;">Score: {{$link->score}}</span>
                     </div>
                     <div class="p-1 flex-grow-1">
