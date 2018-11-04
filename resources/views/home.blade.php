@@ -10,13 +10,13 @@
             {!! Form::text('searchQuery', isset($searchQuery) ? $searchQuery : null, ['class' => 'form-control']) !!}
             <p><b>Tags:</b></p>
             @foreach($tags as $tag)
-                <div class="form-check">
-                    {!! Form::label('tags[]', $tag->name) !!}
+                <div class="form-group form-check">
                     @if(isset($filterTags))
-                    {!! Form::checkbox('tags[]', $tag->name, in_array($tag->name, $filterTags) ? true : false) !!}
+                        {!! Form::checkbox('tags[]', $tag->name, in_array($tag->name, $filterTags) ? true : false, ['class' => 'form-check-input', 'id' => $tag->name]  ) !!}
                     @else
-                        {!! Form::checkbox('tags[]', $tag->name) !!}
+                        {!! Form::checkbox('tags[]', $tag->name, null, ['class' => 'form-check-input', 'id' => $tag->name]) !!}
                     @endif
+                    {!! Form::label($tag->name, $tag->name, ['class' => 'form-check-label']) !!}
                 </div>
             @endforeach
 
@@ -30,9 +30,16 @@
             @foreach($links as $link)
                 <li class="list-group-item d-flex">
                     <div class="p-1">
-                        <a class="btn btn-secondary" href="{{route('link.vote', $link->id)}}">^</a>
-                        <a class="btn btn-secondary" href="{{route('link.vote', $link->id)}}">v</a>
-                        <span style="display: block;">Score: {{$link->score}}</span>
+                        {!! Form::open(['route' => ['link.vote', $link->id], 'method' => 'POST', 'style' => 'display:inline-block']) !!}
+                            {!! Form::hidden('vote', 1) !!}
+                            <button class="btn {{$link->userVote() > 0 ? 'btn-success' : 'btn-secondary'}}">^</button>
+                        {!! Form::close() !!}
+
+                        {!! Form::open(['route' => ['link.vote', $link->id], 'method' => 'POST', 'style' => 'display:inline-block']) !!}
+                            {!! Form::hidden('vote', -1) !!}
+                            <button class="btn {{$link->userVote() < 0 ? 'btn-success' : 'btn-secondary'}}">v</button>
+                        {!! Form::close() !!}
+                        <span style="display: block;">Score: {{$link->score()}}</span>
                     </div>
                     <div class="p-1 flex-grow-1">
                         <a href="{{ route('public.link.show', $link->id) }}">

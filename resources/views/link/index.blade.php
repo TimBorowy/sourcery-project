@@ -14,11 +14,6 @@
             <ul class="list-group list-group-flush">
                 @foreach($links as $link)
                 <li class="list-group-item d-flex">
-                    <div class="p-1">
-                        <a class="btn btn-success" href="{{route('link.vote', $link->id)}}">^</a>
-                        <a class="btn btn-success" href="{{route('link.vote', $link->id)}}">v</a>
-                        <span style="display: block;">Score: {{$link->score}}</span>
-                    </div>
                     <div class="flex-grow-1 p-1">
                         <a href="{{ route('link.show', $link->id) }}">
                             <h2>{{$link->description}}</h2>

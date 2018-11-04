@@ -5,20 +5,14 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('description', 'Beschrijving:') !!}
+    {!! Form::label('description', 'Description:') !!}
     {!! Form::text('description', null, ['class' => 'form-control']) !!}
     @include('errors.validation', ['error' => 'description'])
 </div>
 
 <div class="form-group">
-    {!! Form::label('allowVoting', 'Stemmen toestaan:') !!}
-    {!! Form::checkbox('allowVoting', 1, ['class' => 'form-control']) !!}
-    @include('errors.validation', ['error' => 'allowVoting'])
-</div>
-
-<div class="form-group">
     {!! Form::label('category_id', 'Category:') !!}
-    {!! Form::select('category_id', $categories, ['class' => 'form-control']) !!}
+    {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
     @include('errors.validation', ['error' => 'category_id'])
 </div>
 

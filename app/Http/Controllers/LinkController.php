@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\LinkRequest;
 use App\Link;
+use App\Vote;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +28,9 @@ class LinkController extends Controller
         $searchQuery = $request->input('searchQuery');
         $filterTags = $request->input('tags');
 
-        if($filterTags == null){
+        //dd($filterTags);
+
+        if($filterTags != null){
             $links = Link::withAnyTag($filterTags)->where('description', 'LIKE', '%' . $searchQuery . '%')->get();
         } else {
             $links = Link::where('description', 'LIKE', '%' . $searchQuery . '%')->get();
@@ -43,12 +47,34 @@ class LinkController extends Controller
      * Up vote the specified resource.
      *
      * @param  \App\Link $link
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function upvote(Link $link){
-        $link->score++;
-        $link->update();
-        return redirect(route('link.index'));
+    public function vote(Request $request, Link $link){
+        $voteValue = $request->input('vote');
+
+
+        // Prevent vote form spoofing for wrong values
+        if($voteValue == 1 || $voteValue == -1){
+
+            // Try to get vote if already exists
+            try{
+                // Gives exception if not found
+                $vote = Vote::where('user_id', Auth::user()->id)->where('link_id', $link->id)->firstorfail();
+                $vote->vote = $voteValue;
+                $vote->save();
+
+            } catch(ModelNotFoundException $e){
+                $vote = new Vote;
+                $vote->user_id = Auth::user()->id;
+                $vote->link_id = $link->id;
+                $vote->vote = $voteValue;
+                $vote->save();
+
+            }
+        }
+
+        return redirect(route('index'));
     }
 
 
@@ -159,8 +185,8 @@ class LinkController extends Controller
     }
 
     public function isAllowedToModify($link){
-        if(Auth::user()->id != $link->user_id){
-            return true;
-        }
+        // Allow modification if user is admin or owner of post.
+
+        return (Auth::user()->role->name != 'Admin' || Auth::user()->id != $link->user_id);
     }
 }

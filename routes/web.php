@@ -18,7 +18,7 @@ Route::get('/link/{link}', 'LinkController@show')->name('public.link.show');
 Auth::routes();
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'account'], function(){
-    Route::post('link/{link}/vote', 'LinkController@upvote')->name('link.vote');
+    Route::post('link/{link}/vote', 'LinkController@vote')->name('link.vote');
     Route::resource('link', 'LinkController');
 });
 Route::resource('account', 'AccountController')->middleware('auth');
