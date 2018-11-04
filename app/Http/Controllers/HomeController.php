@@ -30,4 +30,8 @@ class HomeController extends Controller
         $categories = Category::all()->pluck('name');
         return view('home', compact('links', 'tags', 'categories'));
     }
+
+    public function rules(){
+        return view('');
+    }
 }
