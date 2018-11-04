@@ -28,7 +28,12 @@ class Link extends Model
     }
 
     public function userVote(){
-        return Vote::where('link_id', $this->id)->where('user_id', Auth::user()->id)->pluck('vote')->first();
+        if(Auth::check()){
+
+            return Vote::where('link_id', $this->id)->where('user_id', Auth::user()->id)->pluck('vote')->first();
+        }
+
+        return false;
     }
 
 

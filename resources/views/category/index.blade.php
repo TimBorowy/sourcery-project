@@ -23,10 +23,15 @@
                     <div class="p-1">
                         <a class="btn btn-success" href="{{route('category.edit', $category->id)}}">Edit category</a>
                     </div>
+                    <div class="p-1">
+                        {!! Form::model($category, ['route' => ['category.destroy', $category], 'method' => 'DELETE']) !!}
+                        {{ Form::hidden('_method', 'DELETE') }}
+                        {{ Form::submit('Remove', ['class' => 'btn btn-danger']) }}
+                        {{ Form::close() }}
+                    </div>
                 </li>
                 @endforeach
 
-                <li class="list-group-item">Vestibulum at eros</li>
             </ul>
 
         </div>

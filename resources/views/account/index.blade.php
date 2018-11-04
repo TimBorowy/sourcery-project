@@ -15,14 +15,20 @@
             <ul class="list-group list-group-flush">
                 @foreach($links as $link)
                 <li class="list-group-item d-flex">
-                    <div class="col">
+                    <div class="p-1 flex-grow-1">
                         <a href="{{ route('link.show', $link->id) }}">
                             <h2>{{$link->description}}</h2>
                         </a>
 
                     </div>
-                    <div>
+                    <div class="p-1">
                         <a class="btn btn-success" href="{{route('link.edit', $link->id)}}">Edit link</a>
+                    </div>
+                    <div class="p-1">
+                        {!! Form::model($link, ['route' => ['link.destroy', $link], 'method' => 'DELETE']) !!}
+                        {{ Form::hidden('_method', 'DELETE') }}
+                        {{ Form::submit('Remove', ['class' => 'btn btn-danger']) }}
+                        {{ Form::close() }}
                     </div>
                 </li>
                 @endforeach

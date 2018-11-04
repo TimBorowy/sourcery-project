@@ -11,19 +11,23 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('index');
-Route::post('/', 'LinkController@search')->name('link.search');
-Route::get('/link/{link}', 'LinkController@show')->name('public.link.show');
+Route::group(['middleware' => 'web'], function(){
 
-Auth::routes();
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::post('/', 'LinkController@search')->name('link.search');
+    Route::get('/link/{link}', 'LinkController@show')->name('public.link.show');
 
-Route::group(['middleware' => ['auth'], 'prefix' => 'account'], function(){
-    Route::post('link/{link}/vote', 'LinkController@vote')->name('link.vote');
-    Route::resource('link', 'LinkController');
-});
-Route::resource('account', 'AccountController')->middleware('auth');
+    Auth::routes();
 
-Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function(){
-    Route::resource('category', 'CategoryController');
+    Route::group(['middleware' => ['auth'], 'prefix' => 'account'], function () {
+        Route::post('link/{link}/vote', 'LinkController@vote')->name('link.vote');
+        Route::resource('link', 'LinkController')->except('index');
+    });
+    Route::resource('account', 'AccountController')->middleware('auth');
+
+    Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+        Route::resource('link', 'LinkController')->only('index');
+        Route::resource('category', 'CategoryController');
+    });
 });
 

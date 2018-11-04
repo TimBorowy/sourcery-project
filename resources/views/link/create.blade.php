@@ -6,7 +6,7 @@
             <div class="col-md-8 offset-md-2">
                 <div>
                     <h1>Create Link</h1>
-                    <a class="btn btn-primary" href="{{route('link.index')}}">Back</a>
+                    <a class="btn btn-primary" href="{{route('account.index')}}">Back</a>
                 </div>
                 {!! Form::open(['route' => 'link.store']) !!}
                 @include('link.forms.form')

@@ -25,9 +25,10 @@ class LinkRequest extends FormRequest
     public function rules()
     {
         return [
-            'linkAddress' => 'required|min:3|max:100',
+            'linkAddress' => 'required|min:3|max:512',
             'description' => 'required|min:1|max:512',
             'category_id' => 'required',
+            'tags'        => 'required',
         ];
     }
 }

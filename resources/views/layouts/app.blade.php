@@ -33,12 +33,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @if(Auth::check() && Auth::user()->role->name == 'Admin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('link.index')}}">Links</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('category.index')}}">Categories</a>
                         </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('link.create')}}">Create new Link</a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

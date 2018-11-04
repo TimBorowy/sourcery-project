@@ -24,6 +24,7 @@
         {!! Form::label('tags', 'Add new tag:') !!}
         {!! Form::text('tags', null, ['class' => 'form-control']) !!}
     @endif
+    @include('errors.validation', ['error' => 'tags'])
 </div>
 
 {{--<div class="form-group">

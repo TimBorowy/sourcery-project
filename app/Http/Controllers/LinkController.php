@@ -28,7 +28,6 @@ class LinkController extends Controller
         $searchQuery = $request->input('searchQuery');
         $filterTags = $request->input('tags');
 
-        //dd($filterTags);
 
         if($filterTags != null){
             $links = Link::withAnyTag($filterTags)->where('description', 'LIKE', '%' . $searchQuery . '%')->get();
@@ -105,7 +104,7 @@ class LinkController extends Controller
 
         $link->tag(explode(',', $request->tags));
 
-        return redirect(route('link.index'));
+        return $this->redirectBack();
     }
 
     /**
@@ -128,7 +127,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        if($this->isAllowedToModify($link)){
+        if(!$this->isAllowedToModify($link)){
             return response('Unauthorized.', 401);
         }
 
@@ -157,14 +156,14 @@ class LinkController extends Controller
      */
     public function update(LinkRequest $request, Link $link)
     {
-        if ($this->isAllowedToModify($link)) {
+        if (!$this->isAllowedToModify($link)) {
             return response('Unauthorized.', 401);
         }
 
         $link->update($request->all());
 
         $link->retag(explode(',', $request->tags));
-        return redirect(route('link.index'));
+        return $this->redirectBack();
     }
 
     /**
@@ -176,17 +175,28 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
-        if ($this->isAllowedToModify($link)) {
+        if (!$this->isAllowedToModify($link)) {
             return response('Unauthorized.', 401);
         }
 
         $link->delete();
-        return redirect(route('link.index'));
+        return $this->redirectBack();
+
     }
 
     public function isAllowedToModify($link){
         // Allow modification if user is admin or owner of post.
 
-        return (Auth::user()->role->name != 'Admin' || Auth::user()->id != $link->user_id);
+        return (Auth::user()->role->name == 'Admin' || Auth::user()->id == $link->user_id);
+    }
+
+    public function redirectBack(){
+        if (Auth::user()->role->name == 'Admin') {
+
+            return redirect(route('link.index'));
+        } else {
+
+            return redirect(route('account.index'));
+        }
     }
 }

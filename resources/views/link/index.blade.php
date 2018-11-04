@@ -31,8 +31,6 @@
                     </div>
                 </li>
                 @endforeach
-
-                <li class="list-group-item">Vestibulum at eros</li>
             </ul>
 
         </div>

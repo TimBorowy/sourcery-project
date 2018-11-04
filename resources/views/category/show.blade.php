@@ -5,6 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2 topMargin">
+                <a class="btn btn-primary" href="{{route('category.index')}}">Back</a>
                 <h1>{{$category->name}}</h1>
 
 

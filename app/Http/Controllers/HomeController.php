@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Link;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
     {
         $links = Link::all();
         $tags = Link::existingTags();
-        return view('home', compact('links', 'tags'));
+        $categories = Category::all()->pluck('name');
+        return view('home', compact('links', 'tags', 'categories'));
     }
 }
