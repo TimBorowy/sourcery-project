@@ -176,6 +176,10 @@ return [
          * Form builder
          * */
         Collective\Html\HtmlServiceProvider::class,
+        /*
+         * Tagging
+         * */
+        Conner\Tagging\Providers\TaggingServiceProvider::class,
 
     ],
 

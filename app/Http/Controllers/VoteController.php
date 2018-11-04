@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TagRequest;
-use App\Tag;
+use App\Vote;
 use Illuminate\Http\Request;
 
-class TagController extends Controller
+class VoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
-        return view('tag.index', compact('tags'));
+        //
     }
 
     /**
@@ -26,69 +24,62 @@ class TagController extends Controller
      */
     public function create()
     {
-        return view('tag.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  TagRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TagRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
-
-        Tag::create($input);
-        return redirect(route('tag.index'));
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show(Vote $vote)
     {
-        return view('tag.show', compact('tag'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tag $tag)
+    public function edit(Vote $vote)
     {
-        return view('tag.edit', compact('tag'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  TagRequest  $request
-     * @param  \App\Tag  $tag
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function update(TagRequest $request, Tag $tag)
+    public function update(Request $request, Vote $vote)
     {
-        $tag->update($request->all());
-        return redirect(route('tag.index'));
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tag  $tag
+     * @param  \App\Vote  $vote
      * @return \Illuminate\Http\Response
-     * @throws ? XD
      */
-    public function destroy(Tag $tag)
+    public function destroy(Vote $vote)
     {
-        $tag->delete();
-        return redirect(route(tag.index));
+        //
     }
 }

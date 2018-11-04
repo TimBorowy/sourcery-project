@@ -5,11 +5,10 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div>
-                    <h1>Create Tag</h1>
-                    <a class="btn btn-primary" href="{{route('tag.index')}}">Back</a>
+                    <h1>Update your account</h1>
                 </div>
-                {!! Form::open(['route' => 'tag.store']) !!}
-                @include('tag.forms.form')
+                {!! Form::model($user, ['route' => ['account.update', $user], 'method' => 'patch']) !!}
+                @include('account.forms.form')
                 {!! Form::close() !!}
             </div>
         </div>

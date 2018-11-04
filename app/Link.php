@@ -2,22 +2,35 @@
 
 namespace App;
 
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Link extends Model
 {
+    use Taggable;
+
     protected $fillable = [
-        'linkAddress', 'description', 'score', 'category_id'
+        'linkAddress', 'description', 'category_id', 'allowVoting', 'user_id',
     ];
 
     public function category(){
         return $this->belongsTo('App\Category');
     }
 
-    public function Tags()
+    public function user()
     {
-        return $this->belongsToMany('App\Tag', 'link_tags');
+        return $this->belongsTo('App\User');
     }
+
+    public function score(){
+        return Vote::where('link_id', $this->id)->sum('vote');
+    }
+
+    public function userVote(){
+        return Vote::where('link_id', $this->id)->where('user_id', Auth::user()->id)->pluck('vote')->first();
+    }
+
 
 
 }

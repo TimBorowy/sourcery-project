@@ -18,10 +18,15 @@ class CreateLinksTable extends Migration
             $table->string('linkAddress');
             $table->string('description');
             $table->integer('score')->default(0);
-            $table->boolean('allowVoting')->default(true);
+            $table->boolean('allowVoting')->default(0);
+
+
 
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
+
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

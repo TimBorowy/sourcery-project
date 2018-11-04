@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Category;
 use App\Link;
-use App\Tag;
+use App\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::model('link', Link::class);
         Route::model('category', Category::class);
-        Route::model('tag', Tag::class);
+        Route::model('account', User::class);
     }
 
     /**

@@ -13,6 +13,7 @@ class LinkRequest extends FormRequest
      */
     public function authorize()
     {
+
         return true;
     }
 
@@ -25,6 +26,7 @@ class LinkRequest extends FormRequest
     {
         return [
             'linkAddress' => 'required|min:3|max:100',
+            'description' => 'required|min:1|max:512',
             'category_id' => 'required',
         ];
     }

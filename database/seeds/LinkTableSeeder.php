@@ -16,6 +16,7 @@ class LinkTableSeeder extends Seeder
             'description' => 'Hoe je goed een node app kan debuggen',
             'score' => '6',
             'category_id' => 1,
+            'user_id' => 1,
         ]);
 
         \App\Link::create([
@@ -23,6 +24,7 @@ class LinkTableSeeder extends Seeder
             'description' => 'Goeie node tuts',
             'score' => '6',
             'category_id' => 1,
+            'user_id' => 1,
         ]);
 
         \App\Link::create([
@@ -30,6 +32,7 @@ class LinkTableSeeder extends Seeder
             'description' => 'javascript guidelines en refrence',
             'score' => '6',
             'category_id' => 1,
+            'user_id' => 1,
         ]);
 
         \App\Link::create([
@@ -37,6 +40,7 @@ class LinkTableSeeder extends Seeder
             'description' => 'goeie buro\'s om op de werken',
             'score' => '6',
             'category_id' => 1,
+            'user_id' => 2,
         ]);
     }
 }

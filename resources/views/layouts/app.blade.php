@@ -39,9 +39,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('category.index')}}">Categories</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('tag.index')}}">Tags</a>
-                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -63,6 +60,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{route('account.index')}}" class="dropdown-item">Account</a>
+                                    <a href="{{route('account.edit', Auth::user()->id)}}" class="dropdown-item">Edit account</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
