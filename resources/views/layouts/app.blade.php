@@ -44,6 +44,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('link.create')}}">Create new Link</a>
                             </li>
+                            <li>
+                                <a href="{{route('rules')}}" class="nav-link">Site rules</a>
+                            </li>
                         @endif
                     </ul>
 

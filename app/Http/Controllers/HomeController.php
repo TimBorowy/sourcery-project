@@ -32,6 +32,6 @@ class HomeController extends Controller
     }
 
     public function rules(){
-        return view('');
+        return view('pages.rules');
     }
 }

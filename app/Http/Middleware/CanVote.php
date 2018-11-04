@@ -24,6 +24,6 @@ class CanVote
             return $next($request);
         }
 
-        return redirect(route(''));
+        return redirect(route('rules'));
     }
 }
