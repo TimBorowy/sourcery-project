@@ -20,7 +20,7 @@
 
             <p><b>Tags:</b></p>
             @foreach($tags as $tag)
-                <div class="form-group form-check">
+                <div class="form-group form-check-inline">
                     @if(isset($filterTags))
                         {!! Form::checkbox('tags[]', $tag->name, in_array($tag->name, $filterTags) ? true : false, ['class' => 'form-check-input', 'id' => $tag->name]  ) !!}
                     @else
@@ -30,8 +30,9 @@
                 </div>
 
             @endforeach
-
-            {{ Form::submit('Zoek link', ['class' => 'btn btn-default']) }}
+            <div class="form-group">
+                {{ Form::submit('Zoek link', ['class' => 'btn btn-default']) }}
+            </div>
 
             {{ Form::close() }}
 
@@ -43,12 +44,14 @@
                     <div class="p-1">
                         {!! Form::open(['route' => ['link.vote', $link->id], 'method' => 'POST', 'style' => 'display:inline-block']) !!}
                             {!! Form::hidden('vote', 1) !!}
-                            <button class="btn {{$link->userVote() > 0 ? 'btn-success' : 'btn-secondary'}}">^</button>
+                            <button class="btn {{$link->userVote() > 0 ? 'btn-success' : 'btn-outline-secondary'}}"><i
+                                        class="fa fa-arrow-up" aria-hidden="true"></i></button>
                         {!! Form::close() !!}
 
                         {!! Form::open(['route' => ['link.vote', $link->id], 'method' => 'POST', 'style' => 'display:inline-block']) !!}
                             {!! Form::hidden('vote', -1) !!}
-                            <button class="btn {{$link->userVote() < 0 ? 'btn-success' : 'btn-secondary'}}">v</button>
+                            <button class="btn {{$link->userVote() < 0 ? 'btn-success' : 'btn-outline-secondary'}}"><i
+                                        class="fa fa-arrow-down" aria-hidden="true"></i></button>
                         {!! Form::close() !!}
                         <span style="display: block;">Score: {{$link->score()}}</span>
                     </div>

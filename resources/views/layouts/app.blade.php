@@ -91,6 +91,15 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="sourcery-footer d-flex justify-content-center">
+            <div>
+                <p>Sourcery {{\Carbon\Carbon::now()->year}} by <a href="https://twitter.com/TimBorowy">@TimBorowy</a>.</p>
+                <p>
+                    <a href="#">Back to top</a>
+                </p>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

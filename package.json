@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "browserify": "^16.2.3",
+        "font-awesome": "^4.7.0",
         "selectize": "^0.12.6"
     }
 }

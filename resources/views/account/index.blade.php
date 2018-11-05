@@ -7,7 +7,9 @@
             <div class="card-header d-flex justify-content-between">
                 <h1>Your account:</h1>
                 <div>
-                    <a class="btn btn-primary" href="{{route('link.create')}}">Create Link</a>
+                    <a class="btn btn-primary" href="{{route('link.create')}}">
+                        Create Link <i class="fa fa-plus"aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
 
@@ -22,12 +24,14 @@
 
                     </div>
                     <div class="p-1">
-                        <a class="btn btn-success" href="{{route('link.edit', $link->id)}}">Edit link</a>
+                        <a class="btn btn-success" href="{{route('link.edit', $link->id)}}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
                     </div>
                     <div class="p-1">
                         {!! Form::model($link, ['route' => ['link.destroy', $link], 'method' => 'DELETE']) !!}
                         {{ Form::hidden('_method', 'DELETE') }}
-                        {{ Form::submit('Remove', ['class' => 'btn btn-danger']) }}
+                        <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         {{ Form::close() }}
                     </div>
                 </li>

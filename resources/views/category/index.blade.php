@@ -7,7 +7,9 @@
             <div class="card-header d-flex justify-content-between">
                 <h1>Categories</h1>
                 <div>
-                    <a class="btn btn-primary" href="{{route('category.create')}}">Create category</a>
+                    <a class="btn btn-primary" href="{{route('category.create')}}">
+                        Create category <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
 
@@ -21,12 +23,14 @@
 
                     </div>
                     <div class="p-1">
-                        <a class="btn btn-success" href="{{route('category.edit', $category->id)}}">Edit category</a>
+                        <a class="btn btn-success" href="{{route('category.edit', $category->id)}}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
                     </div>
                     <div class="p-1">
                         {!! Form::model($category, ['route' => ['category.destroy', $category], 'method' => 'DELETE']) !!}
                         {{ Form::hidden('_method', 'DELETE') }}
-                        {{ Form::submit('Remove', ['class' => 'btn btn-danger']) }}
+                        <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         {{ Form::close() }}
                     </div>
                 </li>
